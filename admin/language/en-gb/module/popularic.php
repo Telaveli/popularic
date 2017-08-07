@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']    = 'Megnor Category Tab';
+$_['heading_title']    = 'Popular in Category';
 
 // Text
 $_['text_module']      = 'Modules';
-$_['text_success']     = 'Success: You have modified Megnor Category Tab module!';
-$_['text_edit']        = 'Edit Megnor Category Tab Module';
+$_['text_success']     = 'Success: You have modified Popularic module!';
+$_['text_edit']        = 'Edit Popularic Module';
 
 // Entry
 
