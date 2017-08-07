@@ -1,7 +1,7 @@
 <?php
 class ControllerModuleCategoryTab extends Controller { 
 	public function index($setting) {
-		$this->load->language('module/category_tab');
+		$this->load->language('module/popularic');
 
 		$data['text_tax'] = $this->language->get('text_tax');
 
@@ -22,7 +22,7 @@ class ControllerModuleCategoryTab extends Controller {
 		$data['products'] = array();
 		$data['rand_str'] = $this->generateRandomString(10);
 
-		//$result_module = $setting; //$this->config->get('category_tab_product_slider_module');
+		//$result_module = $setting; //$this->config->get('popularic_product_slider_module');
 		//echo "<pre>"; print_r($setting); exit;
 		$data['heading_title'] = $setting['heading'];
 		
@@ -41,7 +41,7 @@ class ControllerModuleCategoryTab extends Controller {
 			$div_active = ($cnt == 0) ? ' active' : '';
 			$data['categories'][] = array(
 				'category_info' 	=> $category_info,
-				'category_tab' 	=> '<li '. $tab_active .'><a onclick="'.$data['rand_str'].'loadAjaxData('."'".$category_id."'".')" href="#'.$category_name.'" data-toggle="tab">'.$category_name.'</a></li>',
+				'popularic' 	=> '<li '. $tab_active .'><a onclick="'.$data['rand_str'].'loadAjaxData('."'".$category_id."'".')" href="#'.$category_name.'" data-toggle="tab">'.$category_name.'</a></li>',
 				'category_div' 	=> '<div class="tab-pane'.$div_active.'" id="'.$category_name.'">',
 				'category_id'  		=> $category_id,
 				'target_category_id'  => $category_id,						
@@ -122,12 +122,12 @@ class ControllerModuleCategoryTab extends Controller {
 		$data['setting'] = $setting;
 
 		if ($data['categories']) {
-			return $this->load->view('module/category_tab', $data);
+			return $this->load->view('module/popularic', $data);
 		}
 	}
 	
 	public function ajaxloaddata() {
-		$this->load->language('module/category_tab');
+		$this->load->language('module/popularic');
 
 		$data['text_tax'] = $this->language->get('text_tax');
 
@@ -153,7 +153,7 @@ class ControllerModuleCategoryTab extends Controller {
 		}
 		//echo "<pre>"; print_r($target_category_id);exit;
  
-		//$result_module = $setting; //$this->config->get('category_tab_product_slider_module');
+		//$result_module = $setting; //$this->config->get('popularic_product_slider_module');
 		//echo "<pre>"; print_r($setting); exit;
 		$data['heading_title'] = $setting['heading'];
 		$categories_id = $setting['product_category'];
@@ -170,7 +170,7 @@ class ControllerModuleCategoryTab extends Controller {
 			$div_active = ($target_category_id == $category_id) ? ' active' : '';
 			$data['categories'][] = array(
 				'category_info' 	=> $category_info,
-				'category_tab' 	=> '<li '. $tab_active .'><a  onclick="'.$data['rand_str'].'loadAjaxData('."'".$category_id."'".')"  href="#'.$category_name.'" data-toggle="tab">'.$category_name.'</a></li>',
+				'popularic' 	=> '<li '. $tab_active .'><a  onclick="'.$data['rand_str'].'loadAjaxData('."'".$category_id."'".')"  href="#'.$category_name.'" data-toggle="tab">'.$category_name.'</a></li>',
 				'category_div' 	=> '<div class="tab-pane'.$div_active.'" id="'.$category_name.'">',
 				'category_id'  		=> $category_id,
 				'target_category_id' => $target_category_id,			
@@ -254,7 +254,7 @@ class ControllerModuleCategoryTab extends Controller {
  		//echo "<pre>"; print_r($data['categories']); exit;		 
 
 		if ($data['categories']) {
-			echo $this->load->view('module/category_tab', $data);
+			echo $this->load->view('module/popularic', $data);
 		}
 	}
 	public function generateRandomString($length = 10) {

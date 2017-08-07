@@ -1,6 +1,6 @@
 
 <!-- ========================================================================= -->
-<!-- მოდული category_tab დასაწყისი -->
+<!-- მოდული popularic დასაწყისი -->
 
 
 <div id="Tab_Category_Slider" class="categorytab box">
@@ -10,7 +10,7 @@
 
 	<div class="tabs">
 		<ul class="nav nav-tabs">
-			<?php $cnt=0; foreach($categories as $category) { echo $category['category_tab']; } ?>
+			<?php $cnt=0; foreach($categories as $category) { echo $category['popularic']; } ?>
         </ul>
 		<div class="tab-content">
 			<?php foreach($categories as $category) { echo $category['category_div'];?>
@@ -132,7 +132,7 @@ function <?php echo $rand_str; ?>loadAjaxData(category_id) {
 	$.ajax({
 		type: 'POST',
 		data: dataToSend,
-		url: '<?php echo HTTP_SERVER;?>index.php?route=module/category_tab/ajaxloaddata',
+		url: '<?php echo HTTP_SERVER;?>index.php?route=module/popularic/ajaxloaddata',
 		beforeSend: function() {
 		  $("#<?php echo $rand_str;?>").html('<div style="text-align:center;"></div>');
 		  //http://www.bigtravelsghana.com/img/images/ajax-loader.gif
@@ -161,5 +161,5 @@ function <?php echo $rand_str; ?>loadAjaxData(category_id) {
 
 
 
-<!-- მოდული category_tab დასასრული -->
+<!-- მოდული popularic დასასრული -->
 <!-- ========================================================================= -->

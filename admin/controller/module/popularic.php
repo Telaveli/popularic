@@ -1,9 +1,9 @@
 <?php
-class ControllerModuleCategoryTab extends Controller {
+class ControllerModulePopularic extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('module/category_tab');
+		$this->load->language('module/popularic');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -11,7 +11,6 @@ class ControllerModuleCategoryTab extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			if (!isset($this->request->get['module_id'])) {
-				$this->model_extension_module->addModule('category_tab', $this->request->post);
 			} else {
 				$this->model_extension_module->editModule($this->request->get['module_id'], $this->request->post);
 			}
@@ -84,19 +83,19 @@ class ControllerModuleCategoryTab extends Controller {
 		if (!isset($this->request->get['module_id'])) {
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('module/category_tab', 'token=' . $this->session->data['token'], true)
+				'href' => $this->url->link('module/popularic', 'token=' . $this->session->data['token'], true)
 			);
 		} else {
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('module/category_tab', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true)
+				'href' => $this->url->link('module/popularic', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true)
 			);
 		}
 
 		if (!isset($this->request->get['module_id'])) {
-			$data['action'] = $this->url->link('module/category_tab', 'token=' . $this->session->data['token'], true);
+			$data['action'] = $this->url->link('module/popularic', 'token=' . $this->session->data['token'], true);
 		} else {
-			$data['action'] = $this->url->link('module/category_tab', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true);
+			$data['action'] = $this->url->link('module/popularic', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true);
 		}
 
 		$data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], true);
@@ -193,11 +192,11 @@ class ControllerModuleCategoryTab extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('module/category_tab', $data));
+		$this->response->setOutput($this->load->view('module/popularic', $data));
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'module/category_tab')) {
+		if (!$this->user->hasPermission('modify', 'module/popularic')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
