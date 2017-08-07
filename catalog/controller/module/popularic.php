@@ -1,5 +1,5 @@
 <?php
-class ControllerModuleCategoryTab extends Controller { 
+class ControllerModulePopularic extends Controller { 
 	public function index($setting) {
 		$this->load->language('module/popularic');
 
@@ -14,18 +14,18 @@ class ControllerModuleCategoryTab extends Controller {
 		$this->load->model('catalog/product');
 
 		$this->load->model('tool/image');
-		
+
 		$this->document->addStyle('catalog/view/javascript/jquery/owl-carousel/owl.carousel.css');
 		$this->document->addStyle('catalog/view/javascript/jquery/owl-carousel/owl.transitions.css');
 		$this->document->addScript('catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js');
- 
+
 		$data['products'] = array();
 		$data['rand_str'] = $this->generateRandomString(10);
 
 		//$result_module = $setting; //$this->config->get('popularic_product_slider_module');
 		//echo "<pre>"; print_r($setting); exit;
 		$data['heading_title'] = $setting['heading'];
-		
+
 		$categories_id = $setting['product_category'];
 		$categories_id = array_slice($categories_id, 0, $setting['category_limit']);
 		$data['categories'] = array();
@@ -33,7 +33,7 @@ class ControllerModuleCategoryTab extends Controller {
 		$cnt = 0;
 		foreach($categories_id as $category_id)
 		{
-			$category_info = $this->model_catalog_category->getCategory($category_id);			
+			$category_info = $this->model_catalog_category->getCategory($category_id);
 			//$category_name = $category_info['name']; //original code
 			$category_name = empty($category_info['name']) ? '': $category_info['name'];
 			//echo "<pre>"; print_r($category_info); exit;
@@ -44,7 +44,7 @@ class ControllerModuleCategoryTab extends Controller {
 				'popularic' 	=> '<li '. $tab_active .'><a onclick="'.$data['rand_str'].'loadAjaxData('."'".$category_id."'".')" href="#'.$category_name.'" data-toggle="tab">'.$category_name.'</a></li>',
 				'category_div' 	=> '<div class="tab-pane'.$div_active.'" id="'.$category_name.'">',
 				'category_id'  		=> $category_id,
-				'target_category_id'  => $category_id,						
+				'target_category_id'  => $category_id,
 				'category_name' 	=> $category_name,
 			);
 			$cnt++;
@@ -66,18 +66,18 @@ class ControllerModuleCategoryTab extends Controller {
 			} else {
 				$image = $this->model_tool_image->resize('placeholder.png', $setting['width'], $setting['height']);
 			}
-			
+
 			//added for image swap
-				
+
 					$images = $this->model_catalog_product->getProductImages($result['product_id']);
-	
+
 					if(isset($images[0]['image']) && !empty($images)){
-					 $images = $images[0]['image']; 
+					 $images = $images[0]['image'];
 					   }else
 					   {
 					   $images = $image;
 					   }
-						
+
 					//
 
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -117,15 +117,15 @@ class ControllerModuleCategoryTab extends Controller {
 				'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'] )
 			);
 		}
- 		//echo "<pre>"; print_r($data['categories']); exit;		 
-		
+ 		//echo "<pre>"; print_r($data['categories']); exit;
+
 		$data['setting'] = $setting;
 
 		if ($data['categories']) {
 			return $this->load->view('module/popularic', $data);
 		}
 	}
-	
+
 	public function ajaxloaddata() {
 		$this->load->language('module/popularic');
 
@@ -140,11 +140,11 @@ class ControllerModuleCategoryTab extends Controller {
 		$this->load->model('catalog/product');
 
 		$this->load->model('tool/image');
- 
+
 		$data['products'] = array();
 		$data['rand_str'] = $this->generateRandomString(10);
 		$data['mytemplate'] = $this->config->get('theme_default_directory');
-		
+
 		if(isset($this->request->post['setting'])){
 			$setting = $this->request->post['setting'];
 		}
@@ -152,7 +152,7 @@ class ControllerModuleCategoryTab extends Controller {
 			$target_category_id = $this->request->post['category_id'];
 		}
 		//echo "<pre>"; print_r($target_category_id);exit;
- 
+
 		//$result_module = $setting; //$this->config->get('popularic_product_slider_module');
 		//echo "<pre>"; print_r($setting); exit;
 		$data['heading_title'] = $setting['heading'];
@@ -163,7 +163,7 @@ class ControllerModuleCategoryTab extends Controller {
 		$cnt = 0;
 		foreach($categories_id as $category_id)
 		{
-			$category_info = $this->model_catalog_category->getCategory($category_id);			
+			$category_info = $this->model_catalog_category->getCategory($category_id);
 			$category_name = empty($category_info['name']) ? '': $category_info['name']  ;
 			//echo "<pre>"; print_r($category_info); exit;
 			$tab_active = ($target_category_id == $category_id) ? 'class="active"' : '';
@@ -173,10 +173,10 @@ class ControllerModuleCategoryTab extends Controller {
 				'popularic' 	=> '<li '. $tab_active .'><a  onclick="'.$data['rand_str'].'loadAjaxData('."'".$category_id."'".')"  href="#'.$category_name.'" data-toggle="tab">'.$category_name.'</a></li>',
 				'category_div' 	=> '<div class="tab-pane'.$div_active.'" id="'.$category_name.'">',
 				'category_id'  		=> $category_id,
-				'target_category_id' => $target_category_id,			
+				'target_category_id' => $target_category_id,
 				'category_name' 	=> $category_name,
 				'category_href'        => $this->url->link('product/category', 'path=' . $category_id),
- 			);			
+ 			);
 			$cnt++;
   		}
 		$data['category_href'] = $this->url->link('product/category', 'path=' . $target_category_id);
@@ -189,9 +189,9 @@ class ControllerModuleCategoryTab extends Controller {
 			'start'              => 0 * $setting['product_limit'],
 			'limit'              => $setting['product_limit']
 		);
-		
+
 		$data['setting'] = $setting;
-		
+
  		$results = $this->model_catalog_product->getProducts($filter_data);
 		foreach ($results as $result) {
 			if ($result['image']) {
@@ -199,18 +199,18 @@ class ControllerModuleCategoryTab extends Controller {
 			} else {
 				$image = $this->model_tool_image->resize('placeholder.png', $setting['width'], $setting['height']);
 			}
-			
+
 			//added for image swap
-				
+
 					$images = $this->model_catalog_product->getProductImages($result['product_id']);
-	
+
 					if(isset($images[0]['image']) && !empty($images)){
-					 $images = $images[0]['image']; 
+					 $images = $images[0]['image'];
 					   }else
 					   {
 					   $images = $image;
 					   }
-						
+
 					//
 
 
@@ -251,7 +251,7 @@ class ControllerModuleCategoryTab extends Controller {
 				'href'        => $this->url->link('product/product', '&product_id=' . $result['product_id'] )
 			);
 		}
- 		//echo "<pre>"; print_r($data['categories']); exit;		 
+ 		//echo "<pre>"; print_r($data['categories']); exit;
 
 		if ($data['categories']) {
 			echo $this->load->view('module/popularic', $data);
