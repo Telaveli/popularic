@@ -263,15 +263,47 @@ class ModelCatalogProduct extends Model {
 	}
 
 	public function getPopularProducts($limit) {
-		$product_data = array();
+
+				$product_data = array();
+					$categories  = array();
+		//		 echo "<pre>"; 		print_r($limit); exit;
+		    if (is_array($limit)) {
+					$categories = $limit['category_id'];
+				//	echo "<pre>"; print_r($categories); exit;
+					foreach ($categories as $category) {
+						# code...
+			//		$product_data['category_id'][] = $category;
+			//			$query = "SELECT p.product_id FROM " . DB_PREFIX . "product p  LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p2c.category_id = '" . (int)$category . "' p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY p.viewed DESC, p.date_added DESC LIMIT " .  (int)$limit['limit'];
+
+						$query = $this->db->query("SELECT p.product_id FROM " . DB_PREFIX . "product p  LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p2c.category_id = '". (int)$category . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY p.viewed DESC, p.date_added DESC LIMIT " .  (int)$limit['limit']);
+ // echo "<pre>"; print_r($query->rows); exit;
+						foreach ($query->rows as $result) {
+
+						$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+					$product_data[$result['product_id']]['category_id'] = $category;
+  // echo "<pre>"; print_r($product_data[$result['product_id']]);
+						}
+					}
+}
+				else {
+				$query = $this->db->query("SELECT p.product_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY p.viewed DESC, p.date_added DESC LIMIT " . '10');//(int)$limit);
+
+				foreach ($query->rows as $result) {
+				//	$product_data[$result['product_id']]
+					$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+				}
+			 }
+
+/*		$product_data = array();
 
 		$query = $this->db->query("SELECT p.product_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY p.viewed DESC, p.date_added DESC LIMIT " . (int)$limit);
 
 		foreach ($query->rows as $result) {
 			$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
 		}
-
-		return $product_data;
+*/
+// echo "<pre>"; print_r($product_data); exit;
+		return   $product_data;
 	}
 
 	public function getBestSellerProducts($limit) {
@@ -500,7 +532,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 
-/* ---------------------------------------------------download--addon----------------------------------------	
+/* ---------------------------------------------------download--addon----------------------------------------
 	public function download_m($product_id) {
     $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_download pd left join ".DB_PREFIX . "download d on pd.download_id = d.download_id
 	left join ". DB_PREFIX ."download_description dd on pd.download_id = dd.download_id
@@ -524,6 +556,31 @@ class ModelCatalogProduct extends Model {
 
 
 
+public function download_m($product_id) {
+    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_download pd left join ".DB_PREFIX . "download d on pd.download_id = d.download_id
+	left join ". DB_PREFIX ."download_description dd on pd.download_id = dd.download_id
+	WHERE product_id = '" . (int)$product_id . "' and dd.language_id=".(int)$this->config->get('config_language_id'));
+
+
+    $download = array();
+     if ($query->num_rows) {
+        foreach ($query->rows as $row){
+            $download[]=array(
+				'product_id'       => $row['product_id'],
+        		'download_id'      => $row['download_id'],
+				'download_name'	=> $row['name']
+
+			);
+        }
+		return $download;
+		}
+   /* if ($query->num_rows) {
+      return array(
+        'product_id'       => $query->row['product_id'],
+        'download_id'      => $query->row['download_id']
+      );
+    } */
+  }
 	public function getTotalProductSpecials() {
 		$query = $this->db->query("SELECT COUNT(DISTINCT ps.product_id) AS total FROM " . DB_PREFIX . "product_special ps LEFT JOIN " . DB_PREFIX . "product p ON (ps.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW()))");
 

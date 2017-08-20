@@ -1,6 +1,7 @@
 <?php
-class ControllerModulePopularic extends Controller { 
+class ControllerModulePopularic extends Controller {
 	public function index($setting) {
+
 		$this->load->language('module/popularic');
 
 		$data['text_tax'] = $this->language->get('text_tax');
@@ -24,7 +25,9 @@ class ControllerModulePopularic extends Controller {
 
 		//$result_module = $setting; //$this->config->get('popularic_product_slider_module');
 		//echo "<pre>"; print_r($setting); exit;
-		$data['heading_title'] = $setting['heading'];
+		// $data['heading_title'] = $setting['heading'];
+
+		$data['heading_title'] = $this->language->get('heading_title'); 
 
 		$categories_id = $setting['product_category'];
 		$categories_id = array_slice($categories_id, 0, $setting['category_limit']);
