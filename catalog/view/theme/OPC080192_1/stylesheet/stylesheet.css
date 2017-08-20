@@ -1608,8 +1608,8 @@ margin-right:10px;
 
 #content .box .box-heading,.blogs.box .box-heading,.hometab .box-heading  {
 	border:none;
-	background: url(../image/megnor/star.png) no-repeat scroll left center;
-	padding: 0px 0px 0 30px;
+/*	background: url(../image/megnor/star.png) no-repeat scroll left center;  მე დავაკომენტარე */
+	padding: 0px 0px 0 40px; /* იყო 30*/
 	font-size: 18px;
 	color: #1f2022;
 	text-transform:uppercase;
@@ -4860,4 +4860,56 @@ header.smaller #search .input-lg{width:230px;}
 .checkout-cart #content .buttons .pull-right .btn:hover{
     background-color: #25aef5;
     border-color: #25aef5;
+}
+
+#chead24 {
+
+	    background: url(../image/megnor/categories/1.png) no-repeat scroll left center; !important;
+}
+#chead34 {
+
+	    background: url(../image/megnor/categories/2.png) no-repeat scroll left center; !important;
+}
+
+#chead62 {
+
+	    background: url(../image/megnor/categories/3.png) no-repeat scroll left center; !important;
+}
+
+#chead57 {
+
+	    background: url(../image/megnor/categories/4.png) no-repeat scroll left center; !important;
+}
+#chead60 {
+
+	    background: url(../image/megnor/categories/5.png) no-repeat scroll left center; !important;
+}
+
+#chead59 {
+
+	    background: url(../image/megnor/categories/6.png) no-repeat scroll left center; !important;
+}
+#chead20 {
+
+	    background: url(../image/megnor/categories/7.png) no-repeat scroll left center; !important;
+}
+#chead18 {
+
+	    background: url(../image/megnor/categories/8.png) no-repeat scroll left center; !important;
+}
+#chead61 {
+
+	    background: url(../image/megnor/categories/9.png) no-repeat scroll left center; !important;
+}
+#chead33 {
+
+	    background: url(../image/megnor/categories/10.png) no-repeat scroll left center; !important;
+}
+#chead25 {
+
+	    background: url(../image/megnor/categories/11.png) no-repeat scroll left center; !important;
+}
+#chead131 {
+
+	    background: url(../image/megnor/categories/12.png) no-repeat scroll left center; !important;
 }
